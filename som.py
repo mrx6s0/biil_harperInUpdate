@@ -14,26 +14,32 @@ WAVE_OUTPUT_FILENAME = "teste.wav"
 
 audio = pyaudio.PyAudio()
 
-# começa a gravação
 
-stream = audio.open(format=FORMAT, channels=CHANNELS,
-                    rate=RATE, input=True,
-                    frames_per_buffer=CHUNK)
-frames = []
+def main():
+    # começa a gravação
 
-for i in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
-    data = stream.read(CHUNK)
-    frames.append(data)
+    stream = audio.open(format=FORMAT, channels=CHANNELS,
+                        rate=RATE, input=True,
+                        frames_per_buffer=CHUNK)
+    frames = []
 
-# termina a gravação
+    for i in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
+        data = stream.read(CHUNK)
+        frames.append(data)
 
-stream.stop_stream()
-stream.close()
-audio.terminate()
+    # termina a gravação
 
-waveFile = wave.open(WAVE_OUTPUT_FILENAME, 'wb')
-waveFile.setnchannels(CHANNELS)
-waveFile.setsampwidth(audio.get_sample_size(FORMAT))
-waveFile.setframerate(RATE)
-waveFile.writeframes(b''.join(frames))
-waveFile.close()
+    stream.stop_stream()
+    stream.close()
+    audio.terminate()
+
+    waveFile = wave.open(WAVE_OUTPUT_FILENAME, 'wb')
+    waveFile.setnchannels(CHANNELS)
+    waveFile.setsampwidth(audio.get_sample_size(FORMAT))
+    waveFile.setframerate(RATE)
+    waveFile.writeframes(b''.join(frames))
+    waveFile.close()
+
+
+if __name__ == "__main__":
+    main()

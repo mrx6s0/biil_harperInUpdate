@@ -4,10 +4,8 @@
 import os
 
 
-def escuta():
-    choice = 's'
-
-    if choice == "s":
+def escuta(choice='s'):
+    if choice == 's':
         os.system("python som.py")
 
 
