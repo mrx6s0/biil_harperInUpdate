@@ -9,7 +9,6 @@ def escuta():
 
     if choice == "s":
         os.system("python som.py")
-    pass
 
 
 if __name__ == '__main__':
