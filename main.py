@@ -14,10 +14,11 @@ machine's microphone.
 # put netcat in mode listener, to test
 # nc -l -v -p <port_to_connect>
 
-import subprocess, os, sys, time, threading, signal, random, fnmatch
+import signal
+import subprocess
+from time import localtime as time
 from socket import *
-from time import sleep
-from threading import Thread
+
 from escuta import escuta
 
 print "\n"
@@ -32,11 +33,6 @@ else:
 # Used to make sure a subprocess lasts 30 seconds max
 
 class Alarm(Exception):
-    pass
-
-
-def time():
-    time.timelocaltime()
     pass
 
 

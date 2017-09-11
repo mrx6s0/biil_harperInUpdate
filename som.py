@@ -1,8 +1,9 @@
 #!/usr/bin python
 # -*- coding: utf-8 -*- 
 
-import pyaudio
 import wave
+
+import pyaudio
 
 FORMAT = pyaudio.paInt16
 CHANNELS = 2
