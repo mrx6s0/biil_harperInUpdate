@@ -123,4 +123,4 @@ if __name__ == "__main__":
         except KeyboardInterrupt:
             # Close connection, if exists
             if connected:
-                s.close
+                s.close()
