@@ -1,6 +1,8 @@
 # bill_harper
 * A simple backdoor write in pure Python, and the usually libs.
 
+* This code connect to a target machine, keep the connection alive, allows to record from the microphone, if is turn on.
+
 * It was tested for Windows OS, and it's was sucessuful! 
 
 * In a distro linux, just use pyinstaller or cfreeze to compile the code in a .exe format. 
