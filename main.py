@@ -6,12 +6,12 @@ Tool made only for pentesting.
 
 Small and nasty.
 
-IN SOON >>   Update: It now has a function that allows recording audio from the target
+UPDATE: It now has a function that allows recording audio from the target
 machine's microphone.
 
 
 
-# put netcat in mode listener, to test
+# Put netcat in mode listener, to test
 # nc -l -v -p <port_to_connect>
 """
 
